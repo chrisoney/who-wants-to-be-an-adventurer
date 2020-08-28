@@ -12,7 +12,7 @@
 	function muteChange(){
 		muted = !muted;
 		if (muted){
-			let tags = ["correct", "lose", "win"];
+			let tags = ["correct", "lose", "win", "shia-song"];
 			tags.forEach((tag)=>{
 				let ele = document.getElementById(tag);
 				ele.pause();
@@ -292,12 +292,26 @@
 	<div class={`mute-button fas ${muted ? "fa-volume-mute" : "fa-volume-up"}`}
 			 on:click={muteChange}>
 	</div>
-	<audio src="sounds/correct.mp3" id="correct"></audio>
-	<audio src="sounds/lose.mp3" id="lose"></audio>
-	<audio src="sounds/win.mp3" id="win"></audio>
+	<audio src="sounds/correct.mp3" id="correct"><track kind="captions"></audio>
+	<audio src="sounds/lose.mp3" id="lose"><track kind="captions"></audio>
+	<audio src="sounds/win.mp3" id="win"><track kind="captions"></audio>
+		<audio src="sounds/shia-song.mp3" id="shia-song"><track kind="captions"></audio>
+	<img class="shia"
+			 src="images/hidden-shia.png"
+			 alt="shia labeouf"
+			 on:click={()=> !muted ? document.getElementById("shia-song").play() : ""} />
+
 </main>
 
 <style>
+
+	.shia {
+		width: 25px;
+		height: auto;
+		position:absolute;
+		top: 60%;
+		right: -12px;
+	}
 
 	audio { display:none;}
 
@@ -409,6 +423,7 @@
 	.curr {
 		background-image: linear-gradient(yellow, gold, yellow);
 	}
+
 	.curr-font {
 		background-color: black;
 	}
@@ -423,7 +438,7 @@
 		right: 0;
 		text-align: center;
 		padding: 20px;
-
+		overflow:hidden;
 		width: 100vw;
 		height: 100vh;
 		display: flex;
