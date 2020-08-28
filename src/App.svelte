@@ -6,6 +6,22 @@
 	import { quintOut } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
 
+	//audio
+	let muted = false;
+
+	function muteChange(){
+		muted = !muted;
+		if (muted){
+			let tags = ["correct", "lose", "win"];
+			tags.forEach((tag)=>{
+				let ele = document.getElementById(tag);
+				ele.pause();
+				ele.currentTime = 0;
+			});
+		}
+	}
+
+
 	function fade(node, {
 		delay = 600,
 		duration = 1000
@@ -86,6 +102,9 @@
 	function startGame(e,choice){
 		e.stopPropagation();
 		if (choice === "start"){
+			let audioClip = document.getElementById("win");
+			audioClip.pause();
+			audioClip.currentTime = 0;
 			currRank = 0;
 			gameStart = true;
 			timeLeft = 15;
@@ -123,6 +142,13 @@
 		if (isCorrect) {
 			document.getElementById(id).classList.add('green');
 			question = 'Correct!';
+			if (!muted) { 
+				if (quizIdx < 9){
+					document.getElementById('correct').play(); 
+				} else {
+					document.getElementById('win').play();
+				}
+			}
 			setTimeout(() => {
 				document.getElementById(id).classList.remove('green');
 				quizIdx += 1;
@@ -133,10 +159,11 @@
 					selectQuestion(); 
 				}
 				else { win = true;}
-			}, 2000)
+			}, 5000)
 		}
 		else {
 			question = 'Wrong!';
+			if (!muted) { document.getElementById('lose').play(); }
 			document.getElementById(id).classList.add('red');
 			let otherAnswers = document.getElementsByClassName('answer');
 			for (let i = 0; i < otherAnswers.length; i++){
@@ -146,7 +173,7 @@
 			}
 			setTimeout(() => {
 				lose = true;
-			}, 2000)
+			}, 5000)
 		}
 	}
 	//Timer
@@ -163,6 +190,7 @@
 	function pause() {
 		clearInterval(myInterval);
 	}
+
 </script>
 
 <svelte:head>
@@ -261,9 +289,18 @@
 			</div>
 		</div>
 	</div>
+	<div class={`mute-button fas ${muted ? "fa-volume-mute" : "fa-volume-up"}`}
+			 on:click={muteChange}>
+	</div>
+	<audio src="sounds/correct.mp3" id="correct"></audio>
+	<audio src="sounds/lose.mp3" id="lose"></audio>
+	<audio src="sounds/win.mp3" id="win"></audio>
 </main>
 
 <style>
+
+	audio { display:none;}
+
 	.ignore {
 		display: none;
 	}
@@ -494,6 +531,7 @@
 	}
 
 	.next:active{
+		margin-top: 5px;
 		background: #57a957;
 		position: relative;
 		top: 1px;
@@ -548,6 +586,18 @@
 		font-size: 50px;
 		margin-bottom: 10px;
 		color: white;
+	}
+
+	.mute-button{
+		position: absolute;
+		color: white;
+		right: 50px;
+		bottom: 75px;
+		font-size: 40px;
+	}
+
+	.face:hover, .mute-button:hover {
+		cursor:pointer;
 	}
 
 </style>
