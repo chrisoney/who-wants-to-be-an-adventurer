@@ -1,37 +1,18 @@
-# Mintbean's Svelte Template
+# Who Wants To Be A Platinum Rank Adventurer?
 
-## Getting Started
+### About
 
-1. Mint new [ Project name ]
-2. Select `svelte-gh-pages`
-3. `mint r -cp`
-4. `mint develop`
-5. Visit `localhost:5000`
+A trivia game based on the popular TV show "Who Wants To Be A Millionaire, but with a fantasy theme. Answer all the Dungeons & Dragons-inspired questions to achieve fame in the adventurer's guild as a Platinum-Ranked Hero!
 
-## Deployment
+## Languages/Technologies
 
-1. `mint deploy`
-2. Output files are on gh-pages
+Javascript
+Svelte.js
 
-## Resources
+## Sneak Peaks
 
-[Svelte Tutorial](https://svelte.dev/tutorial/basics)
+The built-in animations were a lot of fun to work with and helped make a simple layout more fun to interact with.
 
-[Svelte Docs](https://svelte.dev/docs)
 
-## !Work in progress!
-
-This is currently being developed. Please report any bugs in the issues tab!
-
-## FAQ
-
-### Where do I get started?
-
-I recomend starting in the src/App.svelte then creating components in the corresponding folder.
-
-## What we're trying to achieve
-
-This starter template is meant to be a kickoff spot for a full-fledged Svelte project.
-
-- Simple template to help you get started
-- Yarn for faster package resolution
+```
+```
