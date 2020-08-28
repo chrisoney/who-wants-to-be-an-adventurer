@@ -601,6 +601,16 @@
 		font-size: 50px;
 		margin-bottom: 10px;
 		color: white;
+		animation: slide 0.5s ease-in-out;
+	}
+
+	@keyframes slide {
+    from {
+      opacity: 0%;
+    }
+    to {
+      opacity: 100%;
+		}
 	}
 
 	.mute-button{
