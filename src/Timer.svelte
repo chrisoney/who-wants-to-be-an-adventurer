@@ -1,6 +1,20 @@
 <script>
-  
+  import { quintOut } from 'svelte/easing';
+
   export let timeLeft;
+  function titleFade(node, {
+		delay = 0,
+		duration = 1000
+	}) {
+		const o = +getComputedStyle(node).opacity;
+
+		return {
+			easing:quintOut,
+			delay,
+			duration,
+			css: t => `opacity: ${t * o}`
+		};
+	}
   
 </script>
 
@@ -38,6 +52,6 @@
 <svelte:head>
   <link href="https://fonts.googleapis.com/css2?family=Balthazar&display=swap" rel="stylesheet">
 </svelte:head>
-<div class="timer-container">
+<div class="timer-container" transition:titleFade>
   <span class="timer-num">{timeLeft}</span>
 </div>

@@ -21,6 +21,7 @@
 		}
 	}
 
+	//transition effects
 
 	function fade(node, {
 		delay = 600,
@@ -35,7 +36,22 @@
 			css: t => `opacity: ${t * o}`
 		};
 	}
+
+	function titleFade(node, {
+		delay = 0,
+		duration = 1000
+	}) {
+		const o = +getComputedStyle(node).opacity;
+
+		return {
+			easing:quintOut,
+			delay,
+			duration,
+			css: t => `opacity: ${t * o}`
+		};
+	}
 	
+	let gamePlaying = false;
 	let currRank = -1;
 	let gameStart = false;
 	let win = false;
@@ -101,6 +117,7 @@
 
 	function startGame(e,choice){
 		e.stopPropagation();
+		gamePlaying = true;
 		if (choice === "start"){
 			let audioClip = document.getElementById("win");
 			audioClip.pause();
@@ -199,8 +216,12 @@
 <main>
 	<div class="top">
 		<div class="top-left">
-			<img class="title" src="images/title-2.png" alt="title" />
-			<Timer {timeLeft}/>
+		{#if (!gamePlaying)}
+				<img class="title-big" src="images/title-2.png" alt="title" />
+		{:else}
+				<img class="title-small" src="images/title-2.png" alt="title" transition:titleFade/>
+				<Timer {timeLeft} />
+		{/if}
 		</div>
 		<div class="board">
 			{#each ranks as rank, id}
@@ -313,7 +334,7 @@
 		right: -12px;
 	}
 
-	audio { display:none;}
+	audio { display:none; }
 
 	.ignore {
 		display: none;
@@ -326,15 +347,21 @@
 	}
 
 	.top-left{
+		height: 450px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: space-around;
 	}
 
-	.title {
+	.title-big {
 		width: 350px;
 		height: 350px;
+	}
+
+	.title-small {
+		width: 250px;
+		height: 250px;
 	}
 
 	.tag-area {
@@ -449,14 +476,6 @@
 		-moz-background-size: cover;
 		-o-background-size: cover;
 		background-size: cover;
-	}
-
-
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
 	}
 
 
@@ -625,4 +644,10 @@
 		cursor:pointer;
 	}
 
+
+	@media (min-width: 640px) {
+		main {
+			max-width: none;
+		}
+	}
 </style>

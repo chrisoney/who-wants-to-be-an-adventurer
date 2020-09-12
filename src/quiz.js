@@ -20,6 +20,16 @@ const quiz = {
         'CON'
       ],
     },
+    {
+      question: 'What is a slime\'s weak point?',
+      correctAnswer: 'Their core',
+      answers: [
+        'Their skin',
+        'Their mana reliance',
+        'Their core',
+        'Their feelings'
+      ],
+    },
   ],
   1: [
     {
